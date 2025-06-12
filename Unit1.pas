@@ -12,10 +12,16 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
     Button4: TButton;
+    Button5: TButton;
+    Button6: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   private
     { Private declarations }
     procedure Teste;
@@ -69,6 +75,29 @@ begin
   end);
 
   t2.Start;
+
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+var
+  a, b, c : String;
+  tempo : Cardinal;
+begin
+
+  tempo := GetTickCount;
+
+  Sleep(5000);
+  a := Random(100).ToString;
+
+  Sleep(3000);
+  b := Random(100).ToString;
+
+  Sleep(2000);
+  c := Random(100).ToString;
+
+  tempo := GetTickCount - tempo;
+
+  label2.Caption := 'Tepo gasto: ' + IntToStr(tempo) + 'ms Valor: ' + a + ' ' + b + ' ' + c;
 
 end;
 
