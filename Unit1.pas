@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.Threading;
 
 type
   TForm1 = class(TForm)
@@ -22,6 +22,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
   private
     { Private declarations }
     procedure Teste;
@@ -31,11 +32,11 @@ type
 
 var
   Form1: TForm1;
+  a : IFuture<String>;
+  b : IFuture<String>;
+  c : IFuture<String>;
 
 implementation
-
-uses
-  System.Threading;
 
 {$R *.dfm}
 
@@ -99,6 +100,47 @@ begin
 
   label2.Caption := 'Tepo gasto: ' + IntToStr(tempo) + 'ms Valor: ' + a + ' ' + b + ' ' + c;
 
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+begin
+  TTask.Run(
+  procedure
+  var
+    tempo : Cardinal;
+  begin
+    tempo := GetTickCount;
+
+    a := TTask.Future<String>(
+      function : String
+      begin
+        Sleep(5000);
+        Result := Random(100).ToString;
+      end);
+
+    b := TTask.Future<String>(
+      function : String
+      begin
+        Sleep(3000);
+        Result := Random(100).ToString;
+      end);
+
+    c := TTask.Future<String>(
+      function : String
+      begin
+        Sleep(2000);
+        Result := Random(100).ToString;
+      end);
+
+    TThread.Synchronize(TThread.CurrentThread,
+    procedure
+    begin
+      tempo := GetTickCount - tempo;
+
+      label3.Caption := 'Tepo gasto: ' + IntToStr(tempo) + 'ms Valor: ' + a.Value + ' ' + b.Value + ' ' + c.Value;
+    end);
+
+  end);
 end;
 
 procedure TForm1.Teste;

@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 205
+  ClientHeight = 253
   ClientWidth = 279
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -33,8 +33,8 @@ object Form1: TForm1
     Caption = 'Label1'
   end
   object Label4: TLabel
-    Left = 89
-    Top = 137
+    Left = 8
+    Top = 158
     Width = 34
     Height = 15
     Caption = 'Label1'
@@ -68,7 +68,7 @@ object Form1: TForm1
   end
   object Button4: TButton
     Left = 8
-    Top = 172
+    Top = 204
     Width = 75
     Height = 25
     Caption = 'Button4'
@@ -77,15 +77,16 @@ object Form1: TForm1
   end
   object Button5: TButton
     Left = 89
-    Top = 172
+    Top = 204
     Width = 75
     Height = 25
-    Caption = 'Button5'
+    Caption = 'IFuture'
     TabOrder = 4
+    OnClick = Button5Click
   end
   object Button6: TButton
     Left = 170
-    Top = 172
+    Top = 204
     Width = 75
     Height = 25
     Caption = 'Button6'
