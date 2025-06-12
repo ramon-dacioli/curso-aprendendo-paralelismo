@@ -39,6 +39,13 @@ object Form1: TForm1
     Height = 15
     Caption = 'Label1'
   end
+  object Label5: TLabel
+    Left = 8
+    Top = 179
+    Width = 34
+    Height = 15
+    Caption = 'Label1'
+  end
   object Button1: TButton
     Left = 8
     Top = 72
@@ -91,5 +98,11 @@ object Form1: TForm1
     Height = 25
     Caption = 'Button6'
     TabOrder = 5
+  end
+  object Timer1: TTimer
+    Enabled = False
+    OnTimer = Timer1Timer
+    Left = 144
+    Top = 128
   end
 end

@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.Threading;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.Threading,
+  Vcl.ExtCtrls;
 
 type
   TForm1 = class(TForm)
@@ -18,11 +19,14 @@ type
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
+    Timer1: TTimer;
+    Label5: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
     procedure Teste;
@@ -104,6 +108,10 @@ end;
 
 procedure TForm1.Button5Click(Sender: TObject);
 begin
+
+  if not Timer1.Enabled then
+    Timer1.Enabled := True;
+
   TTask.Run(
   procedure
   var
@@ -132,13 +140,13 @@ begin
         Result := Random(100).ToString;
       end);
 
-    TThread.Synchronize(TThread.CurrentThread,
-    procedure
-    begin
-      tempo := GetTickCount - tempo;
+    tempo := GetTickCount - tempo;
 
-      label3.Caption := 'Tepo gasto: ' + IntToStr(tempo) + 'ms Valor: ' + a.Value + ' ' + b.Value + ' ' + c.Value;
-    end);
+    //TThread.Synchronize(TThread.CurrentThread,
+    //procedure
+    //begin
+    //  label3.Caption := 'Tepo gasto: ' + IntToStr(tempo) + 'ms Valor: ' + a.Value + ' ' + b.Value + ' ' + c.Value;
+    //end);
 
   end);
 end;
@@ -146,6 +154,25 @@ end;
 procedure TForm1.Teste;
 begin
   Label1.Caption := 'Teste';
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  if a.Status = TTaskStatus.Completed then
+    Label3.Caption := 'Resultado A: ' + a.Value
+  else
+    Label3.Caption := 'Resultado A:---';
+
+  if b.Status = TTaskStatus.Completed then
+    Label4.Caption := 'Resultado B: ' + b.Value
+  else
+    Label4.Caption := 'Resultado B:---';
+
+  if c.Status = TTaskStatus.Completed then
+    Label5.Caption := 'Resultado C: ' + c.Value
+  else
+    Label5.Caption := 'Resultado C:---';
+
 end;
 
 end.
