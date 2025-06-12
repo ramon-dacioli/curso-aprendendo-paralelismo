@@ -15,6 +15,7 @@ type
     Button4: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
   private
     { Private declarations }
     procedure Teste;
@@ -37,7 +38,7 @@ uses
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   Sleep(10000);
-  Label1.Caption := DateToStr(Now);
+  Label1.Caption := DateTimeToStr(Now);
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -48,9 +49,27 @@ begin
     TThread.Synchronize(TThread.CurrentThread,
     procedure
     begin
-      Label1.Caption := DateToStr(Now);
+      Label1.Caption := DateTimeToStr(Now);
     end);
   end);
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var
+  t2 : ITask;
+begin
+  t2 := TTask.Create(procedure
+  begin
+    Sleep(10000);
+    TThread.Synchronize(TThread.CurrentThread,
+    procedure
+    begin
+      Label1.Caption := DateTimeToStr(Now);
+    end);
+  end);
+
+  t2.Start;
+
 end;
 
 procedure TForm1.Teste;
